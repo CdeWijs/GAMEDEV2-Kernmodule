@@ -5,21 +5,21 @@ using UnityEngine.AI;
 
 public class SwordHandler : MonoBehaviour {
 
-	public GameObject enemyObject;
-	public Collider sword;
 	private Animator swordAnim;
 	private AudioSource aSource;
+	public Collider sword;
+	public GameObject enemyObject;
 	private float coolDown = 1f;
 	private float nextHit;
 
+	private AudioSource rhinoAudio;
 	private Animator rhinoAnim;
 	private NavMeshAgent rhinoNav;
-	private AudioSource rhinoAudio;
 
 	void Start () {
-		swordAnim = GetComponent<Animator>();
-		sword = gameObject.GetComponent<Collider> ();
 		aSource = GetComponent<AudioSource>();
+		sword = gameObject.GetComponent<Collider> ();
+		swordAnim = GetComponent<Animator>();
 	}
 
 	void Update () {
@@ -30,7 +30,8 @@ public class SwordHandler : MonoBehaviour {
 			aSource.Play();
 			swordAnim.SetBool("swordHit", true);
 			sword.enabled = true;
-		} else {
+		} 
+		else {
 			swordAnim.SetBool("swordHit", false);
 			sword.enabled =false;
 		}
@@ -41,8 +42,8 @@ public class SwordHandler : MonoBehaviour {
 		if (col.CompareTag("Enemy")){
 
 			rhinoAnim = col.GetComponent<Animator>();
-			rhinoNav = col.GetComponent<NavMeshAgent>();
 			rhinoAudio = col.GetComponent<AudioSource>();
+			rhinoNav = col.GetComponent<NavMeshAgent>();
 
 			rhinoAudio.Play();
 			rhinoNav.enabled = false;
