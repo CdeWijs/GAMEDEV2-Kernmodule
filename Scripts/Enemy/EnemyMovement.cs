@@ -5,30 +5,29 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour {
 
-	public LayerMask detectionLayer;
 	public int attackDamage = 5;
+	public LayerMask detectionLayer;
 
-	private GameObject player;
-	private PlayerHealth playerHealth;
-	private NavMeshAgent myNavMeshAgent;
 	private Animator anim;
 	private AudioSource aSource;
-	private float timer;
-
+	private GameObject player;
+	private NavMeshAgent myNavMeshAgent;
+	private PlayerHealth playerHealth;
+	private Collider[] attackCollider;
 	private Collider[] runCollider;
 	private Collider [] walkCollider;
-	private Collider[] attackCollider;
-	private float runRadius = 30;
-	private float walkRadius = 7;
 	private float attackRadius = 3;
 	private float attackRate = 1.3f;
+	private float runRadius = 30;
+	private float walkRadius = 7;
+	private float timer;
 
 	void Awake () {
+		anim = GetComponent<Animator>();
+		aSource = GetComponent<AudioSource>();
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent <PlayerHealth>();
 		myNavMeshAgent = GetComponent<NavMeshAgent>();
-		anim = GetComponent<Animator>();
-		aSource = GetComponent<AudioSource>();
 	}
 
 	void Update () {
@@ -46,7 +45,8 @@ public class EnemyMovement : MonoBehaviour {
 				anim.SetBool("isIdle", false);
 				anim.SetBool("isWalking", false);
 				myNavMeshAgent.speed = 8;
-			} else {
+			} 
+			else {
 				anim.SetBool("isRunning", false);
 				anim.SetBool("isIdle", true);
 			}
@@ -75,7 +75,8 @@ public class EnemyMovement : MonoBehaviour {
 					anim.SetBool("isWalking", false);
 					anim.SetBool("isRunning", false);
 					anim.SetBool("isAttacking", true);
-				} else {
+				} 
+				else {
 					anim.SetBool("isAttacking", false);
 				}
 			}
