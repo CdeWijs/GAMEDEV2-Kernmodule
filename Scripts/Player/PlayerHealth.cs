@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
 
-	public int startingHealth = 200;
-	public int currentHealth;
-	public Slider healthSlider;
 	public AudioSource aSource;
+	public int currentHealth;
+	public int startingHealth = 200;
+	public Slider healthSlider;
 
 	private LevelManager levelManager;
-
-	bool damaged;
+	private bool damaged;
 
 	void Awake () {
 		currentHealth = startingHealth;
