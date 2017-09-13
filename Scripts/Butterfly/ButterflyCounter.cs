@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ButterflyCounter : MonoBehaviour {
 
-	public static int score;
+	public static int Score;
 	public GameObject goToBalloon;
 
 	private Text text;
@@ -26,7 +26,8 @@ public class ButterflyCounter : MonoBehaviour {
 			if (timeText <= 0) {
 				goToBalloon.SetActive(false);
 			}
-		} else {
+		} 
+		else {
 			goToBalloon.SetActive(false);
 		}
 	}
