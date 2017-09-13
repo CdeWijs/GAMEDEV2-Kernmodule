@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ButterflyPickup : MonoBehaviour {
-
-	public GameObject pressE;
+	
+	public AudioSource aSource;
 	public GameObject butterfly;
 	public GameObject butterflyCounter;
+	public GameObject pressE;
 	public int scoreValue = 1;
-	public AudioSource aSource;
 
 	private bool isInTrigger = false;
 
@@ -30,7 +30,6 @@ public class ButterflyPickup : MonoBehaviour {
 				Destroy(gameObject);
 			}
 
-		} else {
 		}
 	}
 
