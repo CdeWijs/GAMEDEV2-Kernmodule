@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MysteriousNote : MonoBehaviour {
-
-	public GameObject readNote;
+	
 	public GameObject mysteriousNote;
+	public GameObject readNote;
 
 	private bool isInTrigger = false;
 
@@ -31,7 +31,8 @@ public class MysteriousNote : MonoBehaviour {
 				readNote.SetActive(true);
 			}
 
-		} else {
+		} 
+		else {
 			readNote.SetActive(false);
 			mysteriousNote.SetActive(false);
 		}
