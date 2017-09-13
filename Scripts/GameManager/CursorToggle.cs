@@ -29,7 +29,8 @@ public class CursorToggle : MonoBehaviour {
 		if (isCursorLocked) {
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
-		} else {
+		} 
+		else {
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}
