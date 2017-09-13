@@ -6,9 +6,9 @@ public class BalloonTrigger : MonoBehaviour {
 
 	public GameObject airBalloon;
 	public GameObject firstPersonController;
+	public GameObject notEnoughButterflies;
 	public Transform risePosition;
 	public float speed;
-	public GameObject notEnoughButterflies;
 
 	private bool riseUp = false;
 
@@ -30,7 +30,8 @@ public class BalloonTrigger : MonoBehaviour {
 	void OnTriggerStay (Collider col) {
 		if (col.CompareTag("Player") && ButterflyCounter.score >= 10) {
 			riseUp = true;
-		} else {
+		} 
+		else {
 			riseUp = false;
 			notEnoughButterflies.SetActive(true);
 		}
