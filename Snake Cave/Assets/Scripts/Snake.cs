@@ -2,25 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Snake : MonoBehaviour {
 
     public GameObject tailPrefab;
-    public float speed = 10f;
+
+    private float speed;
     
     private bool ateCandy = false;
     private bool startMoving = false;
     private Vector2 direction = Vector2.right;
     private List<Transform> tail = new List<Transform>();
+    private AudioSource audioSource;
 
     private CandySpawn candySpawn;
     private LevelManager levelManager;
     private LevelGenerator levelGenerator;
     
 	void Start () {
+        audioSource = GetComponent<AudioSource>();
+
         candySpawn = FindObjectOfType<CandySpawn>();
         levelManager = FindObjectOfType<LevelManager>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
+
+        // easy
+        if (PlayerPrefsManager.GetDifficulty() == 0f) {
+            speed = 12f;
+        }
+        // normal
+        else if (PlayerPrefsManager.GetDifficulty() == 1f) {
+            speed = 14f;
+        }
+        // hard
+        else {
+            speed = 16f;
+        }
 	}
 	
 	void FixedUpdate () {
@@ -39,6 +57,7 @@ public class Snake : MonoBehaviour {
             direction = Vector2.down;
         }
 
+        // If generator is done drawing the borders, start moving snake
         if (levelGenerator.isDrawn == true) {
             candySpawn.Spawn();
             levelGenerator.isDrawn = false;
@@ -61,7 +80,7 @@ public class Snake : MonoBehaviour {
 
             GameObject g = Instantiate(tailPrefab, currentPosition, Quaternion.identity);
             tail.Insert(0, g.transform);
-
+            Score.score++;
             ateCandy = false;
         }
         else if (tail.Count > 0) {
@@ -73,9 +92,8 @@ public class Snake : MonoBehaviour {
             tail.RemoveAt(tail.Count - 1);
         }
 
-        // conditions for tail trigger to be true
         for (int i = 0; i < tail.Count - 1; i++) {
-            if (tail[i] == tail[0] || tail[i] == tail[1] || tail[i] == tail[2] || tail[i] == tail[3] ) {
+            if (i <= 4) {
                 tail[i].GetComponent<BoxCollider2D>().isTrigger = false;
             }
             else if (tail[i] == tail.Last()) {
@@ -91,10 +109,12 @@ public class Snake : MonoBehaviour {
         if (collision.name.StartsWith("Candy")) {
             ateCandy = true;
 
+            audioSource.Play();
             candySpawn.SetInActive(collision.gameObject);
         }
         else {
             Debug.Log(collision);
+            PlayerPrefsManager.SetHighScore(Score.score);
             levelManager.LoadLevel("Game Over");
         }
     }

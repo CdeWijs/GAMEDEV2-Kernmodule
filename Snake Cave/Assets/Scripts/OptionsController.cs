@@ -6,29 +6,54 @@ using UnityEngine.SceneManagement;
 
 public class OptionsController : MonoBehaviour {
 
-	public Slider volumeSlider, difficultySlider;
+	public Slider volumeSlider;
+    public Slider difficultySlider;
+
 	public LevelManager levelManager;
+
+    public GameObject easy;
+    public GameObject normal;
+    public GameObject hard;
 
 	private MusicPlayer musicPlayer;
 
-	void Start () {
+    private void Start () {
 		musicPlayer = FindObjectOfType<MusicPlayer>();
 		volumeSlider.value = PlayerPrefsManager.GetMasterVolume ();
-		difficultySlider.value = PlayerPrefsManager.GetDifficulty();
+        difficultySlider.value = PlayerPrefsManager.GetDifficulty();
 	}
 
-	void Update () {
+	private void Update () {
 		musicPlayer.ChangeVolume(volumeSlider.value);
+
+        // easy
+        if (difficultySlider.value == 0f) {
+            easy.SetActive(true);
+            normal.SetActive(false);
+            hard.SetActive(false);
+        }
+        // normal
+        else if (difficultySlider.value == 1f) {
+            easy.SetActive(false);
+            normal.SetActive(true);
+            hard.SetActive(false);
+        }
+        // hard
+        else {
+            easy.SetActive(false);
+            normal.SetActive(false);
+            hard.SetActive(true);
+        }
 	}
 
 	public void SaveAndExit () {
 		PlayerPrefsManager.SetMasterVolume (volumeSlider.value);
-		PlayerPrefsManager.SetDifficulty (difficultySlider.value);
-		SceneManager.LoadScene ("01a Start");
+        PlayerPrefsManager.SetDifficulty(difficultySlider.value);
+		SceneManager.LoadScene ("Start");
 	}
 
 	public void SetDefaults () {
 		volumeSlider.value = 0.8f;
-		difficultySlider.value = 2f;
+        difficultySlider.value = 1f;
 	}
 }

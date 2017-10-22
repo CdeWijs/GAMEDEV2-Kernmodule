@@ -5,32 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour {
 
-	public AudioClip [] levelMusic;
+    static MusicPlayer instance = null;
 
-	private AudioSource aSource;
+    private AudioSource music;
 
-	void Awake () {
-		DontDestroyOnLoad (gameObject);
-	}
+    void Start() {
+        music = GetComponent<AudioSource>();
 
-	void Start () {
-		aSource = GetComponent<AudioSource>();
-		aSource.volume = PlayerPrefsManager.GetMasterVolume ();
-		SceneManager.sceneLoaded += OnLevelLoaded;
-	}
-
-	void OnLevelLoaded (Scene scene, LoadSceneMode mode) {
-		AudioClip audioClip = levelMusic[scene.buildIndex];
-		Debug.Log ("Playing clip: " + audioClip);
-
-		if (audioClip) {
-			aSource.clip = audioClip;
-			aSource.loop = true;
-			aSource.Play();
-		}
-	}
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+        }
+        else {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            music = GetComponent<AudioSource>();
+            music.loop = true;
+            music.Play();
+        }
+    }
 
 	public void ChangeVolume (float volume){
-		aSource.volume = volume;
+		music.volume = volume;
 	}
 }
