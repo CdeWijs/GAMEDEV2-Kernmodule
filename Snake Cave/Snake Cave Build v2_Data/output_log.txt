@@ -1,0 +1,164 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 960M (ID=0x139b)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   21.21.13.6909
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.021 seconds
+Platform assembly: D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\celin\projects\GAMEDEV2-Kernmodule\Snake Cave\Snake Cave Build v2_Data\Managed\System.dll (this message is harmless)
+desktop: 3840x2160 60Hz; virtual: 3840x2160 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.048946 ms
+New Level load: Options
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 11.990530 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 349.
+Total: 0.230419 ms (FindLiveObjects: 0.018474 ms CreateObjectMapping: 0.014369 ms MarkObjects: 0.186798 ms  DeleteObjects: 0.010263 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.525499 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 306.
+Total: 0.848805 ms (FindLiveObjects: 0.133940 ms CreateObjectMapping: 0.095965 ms MarkObjects: 0.584002 ms  DeleteObjects: 0.032843 ms)
+
+New Level load: Game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.623517 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 373.
+Total: 0.221695 ms (FindLiveObjects: 0.021553 ms CreateObjectMapping: 0.014882 ms MarkObjects: 0.174995 ms  DeleteObjects: 0.010263 ms)
+
+Tile(Clone) (UnityEngine.BoxCollider2D)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+New Level load: Game Over
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.103025 ms
+
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 313.
+Total: 0.871385 ms (FindLiveObjects: 0.059016 ms CreateObjectMapping: 0.059016 ms MarkObjects: 0.600937 ms  DeleteObjects: 0.151389 ms)
+
+New Level load: Game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.417218 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 373.
+Total: 0.460838 ms (FindLiveObjects: 0.085188 ms CreateObjectMapping: 0.082109 ms MarkObjects: 0.287382 ms  DeleteObjects: 0.005131 ms)
+
+Tile(Clone) (UnityEngine.BoxCollider2D)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+New Level load: Game Over
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Tile(Clone) (UnityEngine.BoxCollider2D)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+New Level load: Game Over
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.053246 ms
+
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 313.
+Total: 0.339214 ms (FindLiveObjects: 0.036436 ms CreateObjectMapping: 0.023093 ms MarkObjects: 0.218102 ms  DeleteObjects: 0.061068 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.861634 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 313.
+Total: 0.226827 ms (FindLiveObjects: 0.023606 ms CreateObjectMapping: 0.021553 ms MarkObjects: 0.177561 ms  DeleteObjects: 0.003079 ms)
+
+New Level load: Start
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.376676 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 306.
+Total: 1.116173 ms (FindLiveObjects: 0.112900 ms CreateObjectMapping: 0.102636 ms MarkObjects: 0.881649 ms  DeleteObjects: 0.016421 ms)
+
+New Level load: Options
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.409007 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 349.
+Total: 0.280711 ms (FindLiveObjects: 0.025145 ms CreateObjectMapping: 0.017448 ms MarkObjects: 0.226313 ms  DeleteObjects: 0.011290 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.631410 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 306.
+Total: 0.795434 ms (FindLiveObjects: 0.072872 ms CreateObjectMapping: 0.061582 ms MarkObjects: 0.616846 ms  DeleteObjects: 0.042081 ms)
+
+New Level load: Game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.009431 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 361.
+Total: 0.262749 ms (FindLiveObjects: 0.032330 ms CreateObjectMapping: 0.021553 ms MarkObjects: 0.198088 ms  DeleteObjects: 0.010263 ms)
+
+Tile(Clone) (UnityEngine.BoxCollider2D)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+New Level load: Game Over
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.771898 ms
+
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 313.
+Total: 0.851884 ms (FindLiveObjects: 0.079543 ms CreateObjectMapping: 0.081082 ms MarkObjects: 0.523447 ms  DeleteObjects: 0.165758 ms)
+
+Quit requested
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 175c -> priority: 1 
+  Thread -> id: 442c -> priority: 1 
+  Thread -> id: 2428 -> priority: 1 
+  Thread -> id: 6220 -> priority: 1 

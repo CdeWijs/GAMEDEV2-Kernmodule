@@ -36,7 +36,7 @@ public class LevelGenerator : MonoBehaviour {
     private float minScreenY;
     private float maxScreenY;
     
-    void Awake() {
+    private void Awake() {
         // easy
         if (PlayerPrefsManager.GetDifficulty() == 0f) {
             startPosition = new Vector3(-39, 25, -5);
@@ -66,7 +66,7 @@ public class LevelGenerator : MonoBehaviour {
         StartCoroutine(GenerateLevel());
     }
 
-    IEnumerator GenerateLevel() {
+    private IEnumerator GenerateLevel() {
 
         do {
             float direction = UnityEngine.Random.Range(0f, 1f);
@@ -85,7 +85,7 @@ public class LevelGenerator : MonoBehaviour {
         yield return 0;
     }
 
-    void CallMoveGenerator(float randomDirection) {
+    private void CallMoveGenerator(float randomDirection) {
         CreateCorner();
 
         if (randomDirection < chanceUp) {
@@ -102,7 +102,7 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-    void MoveGenerator(int direction) {
+    private void MoveGenerator(int direction) {
         switch (direction) {
             // up
             case 0:
@@ -123,7 +123,7 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-    void CreateTile() {
+    private void CreateTile() {
         // If there already is a tile on this position, add one iteration.
         if (createdTiles.Contains(transform.position)) {
             tileAmount++;
@@ -134,7 +134,7 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-    void CreateCorner() {
+    private void CreateCorner() {
 
         // top right corner
         if (transform.position.x > maxScreenX) {

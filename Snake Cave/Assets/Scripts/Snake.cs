@@ -20,7 +20,7 @@ public class Snake : MonoBehaviour {
     private LevelManager levelManager;
     private LevelGenerator levelGenerator;
     
-	void Start () {
+	private void Start () {
         audioSource = GetComponent<AudioSource>();
 
         candySpawn = FindObjectOfType<CandySpawn>();
@@ -41,7 +41,7 @@ public class Snake : MonoBehaviour {
         }
 	}
 	
-	void FixedUpdate () {
+	private void FixedUpdate () {
 
         // Change direction the snake is going
         if (Input.GetKey(KeyCode.RightArrow) && direction != Vector2.left) {

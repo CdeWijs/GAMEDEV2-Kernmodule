@@ -9,7 +9,7 @@ public class MusicPlayer : MonoBehaviour {
 
     private AudioSource music;
 
-    void Start() {
+    private void Start() {
         music = GetComponent<AudioSource>();
 
         if (instance != null && instance != this) {

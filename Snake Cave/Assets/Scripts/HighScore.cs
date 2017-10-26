@@ -8,13 +8,13 @@ public class HighScore : MonoBehaviour {
 
     private Text text;
 
-    void Start()
+    private void Start()
     {
         text = GetComponent<Text>();
         score = PlayerPrefsManager.GetHighScore() ;
     }
 
-    void Update()
+    private void Update()
     {
         text.text = score.ToString();
     }
