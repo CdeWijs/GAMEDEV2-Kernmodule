@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class CreateColorMappingList {
+public class CreateLevelData {
 
 	[MenuItem("Assets/Create/Color Mapping List")]
-    public static ColorMappingList Create() {
+    public static LevelData Create(string assetName) {
         // Create new scriptable object
-        ColorMappingList asset = ScriptableObject.CreateInstance<ColorMappingList>();
-
-        AssetDatabase.CreateAsset(asset, "Assets/ColorMappingList.asset");
+        LevelData asset = ScriptableObject.CreateInstance<LevelData>();
+        
+        AssetDatabase.CreateAsset(asset, "Assets/" + assetName + " data.asset");
         AssetDatabase.SaveAssets();
         return asset;
     }

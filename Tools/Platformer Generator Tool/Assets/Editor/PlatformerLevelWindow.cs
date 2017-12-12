@@ -5,28 +5,31 @@ using UnityEditor.SceneManagement;
 
 public class PlatformerLevelWindow : EditorWindow {
     
-    public ColorMappingList colorMappings;
-    public LevelObjectList levelObjects;
+    public LevelData levelData;
     public Texture2D map;
     public GameObject parentObject;
-    
+    public string levelName;
     private Vector2 scrollPos;
 
     [MenuItem("My Tools/Platformer Level Editor")]
     static void Init() {
         // Get existing open window, or if none make a new one
-        PlatformerLevelWindow window = (PlatformerLevelWindow)GetWindow(typeof(PlatformerLevelWindow));
+        PlatformerLevelWindow window = (PlatformerLevelWindow)GetWindow(typeof(PlatformerLevelWindow), true, "Platformer Level Editor");
         window.Show();
     }
 
     private void OnEnable() {
         if (EditorPrefs.HasKey("ObjectPath")) {
             string objectPath = EditorPrefs.GetString("ObjectPath");
-            colorMappings = (ColorMappingList)AssetDatabase.LoadAssetAtPath(objectPath, typeof(ColorMappingList));
+            levelData = (LevelData)AssetDatabase.LoadAssetAtPath(objectPath, typeof(LevelData));
         }
     }
 
     private void OnGUI() {
+        EditorGUILayout.Space();
+
+        levelName = EditorGUILayout.TextField("Level name", levelName);
+
         EditorGUILayout.Space();
 
         // If color mapping list doesn't exist yet
@@ -35,9 +38,9 @@ public class PlatformerLevelWindow : EditorWindow {
         if (GUILayout.Button("Open List")) {
             OpenList();
         }
-        if (colorMappings) {
+        if (levelData) {
             if (GUILayout.Button("Select Existing List")) {
-                Selection.activeObject = colorMappings;
+                Selection.activeObject = levelData;
             }
         }
         
@@ -46,23 +49,25 @@ public class PlatformerLevelWindow : EditorWindow {
         }
         GUILayout.EndHorizontal();
 
+        EditorGUILayout.Space();
+        
         // If color mapping list exists
-        if (colorMappings != null) {
+        if (levelData != null) {
             EditorGUILayout.Space();
 
             GUILayout.Label("Color Mapping", EditorStyles.boldLabel);
 
             EditorGUILayout.Space();
 
-            colorMappings.texture = (Texture2D)EditorGUILayout.ObjectField("Texture", colorMappings.texture, typeof(Texture2D), true);
-            map = colorMappings.texture;
+            levelData.texture = (Texture2D)EditorGUILayout.ObjectField("Texture", levelData.texture, typeof(Texture2D), true);
+            map = levelData.texture;
 
             EditorGUILayout.Space();
 
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
-            // Show as many colors/prefabs as there are in colorMappings
-            if (colorMappings.mappings.Count > 0) {
-                foreach (ColorMapping mapping in colorMappings.mappings) {
+            // Show as many colors/prefabs as there are in levelData
+            if (levelData.mappings.Count > 0) {
+                foreach (ColorMapping mapping in levelData.mappings) {
                     EditorGUILayout.BeginHorizontal();
                     GUILayout.Label("Color");
                     mapping.color = EditorGUILayout.ColorField( mapping.color);
@@ -71,45 +76,58 @@ public class PlatformerLevelWindow : EditorWindow {
                     EditorGUILayout.EndHorizontal();
                 }
             }
-            GUILayout.EndScrollView();
-
-            GUILayout.Space(20);
 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("New Mapping")) {
                 ColorMapping newMapping = new ColorMapping();
                 newMapping.color = Color.white;
                 newMapping.prefab = null;
-                colorMappings.mappings.Add(newMapping);
+                levelData.mappings.Add(newMapping);
             }
 
             if (GUILayout.Button("Delete Last Mapping")) {
-                colorMappings.mappings.RemoveAt(colorMappings.mappings.Count - 1);
+                levelData.mappings.RemoveAt(levelData.mappings.Count - 1);
             }
             EditorGUILayout.EndHorizontal();
 
+            GUILayout.EndScrollView();
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.BeginHorizontal();
             // Generate level from current texture
             if (GUILayout.Button("Generate Level")) {
-                parentObject = new GameObject("Generated Tiles");
+                // Create parent object for the tiles
+                parentObject = new GameObject(levelName + " Generated Tiles");
                 GenerateLevel();
             }
+            
+            if (GUILayout.Button("Export Level")) {
+                if (parentObject) {
+                    ExportLevel();
+                }
+                else {
+                    Debug.LogError("Can't export level if it's not generated! Click on 'Generate Level'.");
+                }
+            }
+            EditorGUILayout.EndHorizontal();
         }
 
         EditorGUILayout.Space();
         
         if (GUI.changed) {
-            EditorUtility.SetDirty(colorMappings);
+            EditorUtility.SetDirty(levelData);
         }
     }
 
     void CreateNewList() {
-        colorMappings = CreateColorMappingList.Create();
-        if (colorMappings) {
-            colorMappings.mappings = new List<ColorMapping>();
-            // Get current string from scriptable object (colorMappings) and assign to key.
-            string relPath = AssetDatabase.GetAssetPath(colorMappings);
+        levelData = CreateLevelData.Create(levelName);
+        if (levelData) {
+            levelData.mappings = new List<ColorMapping>();
+            // Get current string from scriptable object (levelData) and assign to key.
+            string relPath = AssetDatabase.GetAssetPath(levelData);
             EditorPrefs.SetString("ObjectPath", relPath);
-            Selection.activeObject = colorMappings;
+            Selection.activeObject = levelData;
         }
     }
 
@@ -117,16 +135,16 @@ public class PlatformerLevelWindow : EditorWindow {
         string absPath = EditorUtility.OpenFilePanel("Select Color Mapping List", "", "");
         if (absPath.StartsWith(Application.dataPath)) {
             string relPath = absPath.Substring(Application.dataPath.Length - "Assets".Length);
-            colorMappings = (ColorMappingList)AssetDatabase.LoadAssetAtPath(relPath, typeof(ColorMappingList));
+            levelData = (LevelData)AssetDatabase.LoadAssetAtPath(relPath, typeof(LevelData));
 
-            if (colorMappings) {
+            if (levelData) {
                 EditorPrefs.SetString("ObjectPath", relPath);
             }
-            if (colorMappings.mappings == null) {
-                colorMappings.mappings = new List<ColorMapping>();
+            if (levelData.mappings == null) {
+                levelData.mappings = new List<ColorMapping>();
             }
 
-            Selection.activeObject = colorMappings;
+            Selection.activeObject = levelData;
         }
     }
 
@@ -149,12 +167,24 @@ public class PlatformerLevelWindow : EditorWindow {
             return;
         }
 
-        foreach (ColorMapping mapping in colorMappings.mappings) {
+        foreach (ColorMapping mapping in levelData.mappings) {
             if (mapping.color.Equals(pixelColor)) {
                 Vector2 position = new Vector2(x, y);
 
                 Instantiate(mapping.prefab, position, Quaternion.identity, parentObject.transform);
             }
         }
+    }
+
+    // Create a prefab, then save it to the scriptable object
+    public void ExportLevel() {
+        Selection.activeGameObject = parentObject;
+        GameObject[] gObjects = Selection.gameObjects;
+        foreach(GameObject g in gObjects) {
+            Object obj = PrefabUtility.CreateEmptyPrefab("Assets/" + g.gameObject.name + ".prefab");
+            Object prefab = PrefabUtility.ReplacePrefab(g.gameObject, obj, ReplacePrefabOptions.ConnectToPrefab);
+            levelData.generatedTiles = prefab;
+        }
+
     }
 }
