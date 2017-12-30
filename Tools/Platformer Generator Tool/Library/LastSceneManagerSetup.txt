@@ -1,5 +1,4 @@
 sceneSetups:
-- path: D:/celin/Documents/HKU GDV Jaar 2/Blok 2/Multiplatform Development/Multiplatform
-    Game/Assets/Level01.unity
+- path: Assets/_Scenes/Main.unity
   isLoaded: 1
   isActive: 1

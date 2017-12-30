@@ -6,11 +6,11 @@ using UnityEditor;
 public class CreateLevelData {
 
 	[MenuItem("Assets/Create/Color Mapping List")]
-    public static LevelData Create(string assetName) {
+    public static LevelData Create() {
         // Create new scriptable object
         LevelData asset = ScriptableObject.CreateInstance<LevelData>();
         
-        AssetDatabase.CreateAsset(asset, "Assets/" + assetName + " data.asset");
+        AssetDatabase.CreateAsset(asset, "Assets/Level Data.asset");
         AssetDatabase.SaveAssets();
         return asset;
     }
