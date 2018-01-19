@@ -201,7 +201,7 @@ public class PlatformerLevelWindow : EditorWindow
             {
                 Color pixelColor = map.GetPixel(x, y);
 
-                if (!colors.Contains(pixelColor) && pixelColor.a != 0)
+                if (!colors.Contains(pixelColor) && pixelColor.a >= 0.9)
                 {
                     colors.Add(pixelColor);
                     NewColorMapping(pixelColor);
