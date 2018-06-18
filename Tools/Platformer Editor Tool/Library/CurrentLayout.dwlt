@@ -92,7 +92,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 82
+  controlID: 69
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 121
+  controlID: 9
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -202,10 +202,10 @@ MonoBehaviour:
     y: 0
     width: 869
     height: 731
-  m_MinSize: {x: 202, y: 442}
-  m_MaxSize: {x: 4002, y: 8042}
+  m_MinSize: {x: 202, y: 421}
+  m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 122
+  controlID: 10
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,8 +249,8 @@ MonoBehaviour:
     y: 0
     width: 280
     height: 731
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -275,8 +275,8 @@ MonoBehaviour:
     y: 0
     width: 869
     height: 510
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -363,28 +363,28 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 1805fbff
+    m_SelectedIDs: 04330000
     m_LastClickedID: 0
-    m_ExpandedIDs: 6e06fbff8287fcff2293fcff0013ffff00000000
+    m_ExpandedIDs: 54f6ffff82faffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Buddy System Generated Tiles
-      m_OriginalName: Buddy System Generated Tiles
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -460088
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
   m_ExpandedScenes:
-  - Buddy System
+  - Main
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -461,20 +461,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Editor/CelinedeWijs
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/Editor/CelinedeWijs
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: D:\celin\projects\GAMEDEV2-Kernmodule\Tools\Platformer Generator
+  m_LastProjectPath: D:\celin\projects\GAMEDEV2-Kernmodule\Tools\Platformer Editor
     Tool
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 38450000
-    m_LastClickedID: 17720
-    m_ExpandedIDs: 000000003845000052450000f8450000fa450000fc450000fe4500004247000000ca9a3bffffff7f
+    m_SelectedIDs: 90290000
+    m_LastClickedID: 10640
+    m_ExpandedIDs: 000000008629000092290000a4290000b82900001e350000203500002235000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -502,7 +502,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003845000052450000f8450000fa450000fc450000fe450000
+    m_ExpandedIDs: 000000008629000092290000a4290000b82900001e3500002035000022350000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

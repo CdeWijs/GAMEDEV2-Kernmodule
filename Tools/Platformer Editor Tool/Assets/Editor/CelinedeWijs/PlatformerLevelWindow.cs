@@ -27,7 +27,7 @@ public class PlatformerLevelWindow : EditorWindow
 
     private void OnEnable() 
     {
-        // Load ScriptableObject with level data
+        // Load ScriptableObject with level data if it exists
         if (EditorPrefs.HasKey("ObjectPath"))
         {
             string objectPath = EditorPrefs.GetString("ObjectPath");
@@ -35,7 +35,25 @@ public class PlatformerLevelWindow : EditorWindow
         }
     }
 
-    private void OnGUI() 
+    #region Editor GUI 
+    private void OnGUI()
+    {
+        DisplayLevelDataMenu();
+        
+        if (levelData != null)
+        {
+            DisplayLevelDataEditor();
+        }
+
+        // Save changes to ScriptableObject
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(levelData);
+            AssetDatabase.SaveAssets();
+        }
+    }
+
+    private void DisplayLevelDataMenu()
     {
         GUILayout.BeginHorizontal();
         GUILayout.Space(10);
@@ -46,7 +64,8 @@ public class PlatformerLevelWindow : EditorWindow
             OpenList();
         }
         // Select existing list in project
-        if (levelData) {
+        if (levelData)
+        {
             if (GUILayout.Button("Select Existing List"))
             {
                 Selection.activeObject = levelData;
@@ -60,101 +79,101 @@ public class PlatformerLevelWindow : EditorWindow
 
         GUILayout.EndHorizontal();
         EditorGUILayout.Space();
-        
-        if (levelData != null)
-        {
-            EditorGUILayout.Space();
+    }
 
-            // Level Name
-            levelName = levelData.levelName;
-            levelName = EditorGUILayout.TextField("Level name", levelName);
-            levelData.levelName = levelName;
+    private void DisplayLevelDataEditor()
+    {
+        EditorGUILayout.Space();
 
-            EditorGUILayout.Space();
-
-            GUILayout.Label("Color Mapping", EditorStyles.boldLabel);
-
-            EditorGUILayout.Space();
-
-            // Texture
-            levelData.texture = (Texture2D)EditorGUILayout.ObjectField("Texture", levelData.texture, typeof(Texture2D), true);
-            map = levelData.texture;
-
-            EditorGUILayout.Space();
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
-            
-            // Show as many colors/prefabs as there are in levelData
-            if (levelData.mappings.Count > 0)
-            {
-                foreach (ColorMapping mapping in levelData.mappings)
-                {
-                    EditorGUILayout.BeginHorizontal();
-
-                    // Color
-                    GUILayout.Label("Color");
-                    mapping.color = EditorGUILayout.ColorField(mapping.color);
-
-                    // Prefab
-                    GUILayout.Label("Prefab");
-                    mapping.prefab = (GameObject)EditorGUILayout.ObjectField(mapping.prefab, typeof(GameObject), true);
-
-                    EditorGUILayout.EndHorizontal();
-                }
-            }
-
-            EditorGUILayout.BeginHorizontal();
-
-            // Create color mappings
-            if (GUILayout.Button("Create Color Mappings"))
-            {
-                GetColors();
-            }
-
-            // Delete last mapping in list
-            // TODO let user select which colormapping to delete
-            if (GUILayout.Button("Delete Last Mapping"))
-            {
-                levelData.mappings.RemoveAt(levelData.mappings.Count - 1);
-            }
-
-            EditorGUILayout.EndHorizontal();
-
-            GUILayout.EndScrollView();
-            EditorGUILayout.Space();
-
-            EditorGUILayout.BeginHorizontal();
-
-            // Generate level from level data
-            if (GUILayout.Button("Generate Level"))
-            {
-                // Create parent object for the tiles
-                parentObject = new GameObject(levelName + " Generated Tiles");
-                GenerateLevel();
-            }
-            
-            // Create prefab from Generated Tiles and assign to level data
-            if (GUILayout.Button("Export Level"))
-            {
-                if (parentObject) {
-                    ExportLevel();
-                }
-                else {
-                    Debug.LogError("Can't export level if it's not generated! Click on 'Generate Level'.");
-                }
-            }
-
-            EditorGUILayout.EndHorizontal();
-        }
+        // LEVEL NAME
+        levelName = levelData.levelName;
+        levelName = EditorGUILayout.TextField("Level name", levelName);
+        levelData.levelName = levelName;
 
         EditorGUILayout.Space();
-        
-        // Save changes to ScriptableObject
-        if (GUI.changed)
+        GUILayout.Label("Color Mapping", EditorStyles.boldLabel);
+        EditorGUILayout.Space();
+
+        // TEXTURE
+        levelData.texture = (Texture2D)EditorGUILayout.ObjectField("Texture", levelData.texture, typeof(Texture2D), true);
+        map = levelData.texture;
+
+        DisplayColorMappings();
+        DisplayColorMappingsMenu();
+        DisplayGenerateExportMenu();
+    }
+
+    // Show as many colors/prefabs as there are in levelData
+    private void DisplayColorMappings()
+    {
+        EditorGUILayout.Space();
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+
+        if (levelData.mappings.Count > 0)
         {
-            EditorUtility.SetDirty(levelData);
-            AssetDatabase.SaveAssets();
+            foreach (ColorMapping mapping in levelData.mappings)
+            {
+                EditorGUILayout.BeginHorizontal();
+
+                // Color
+                GUILayout.Label("Color");
+                mapping.color = EditorGUILayout.ColorField(mapping.color);
+
+                // Prefab
+                GUILayout.Label("Prefab");
+                mapping.prefab = (GameObject)EditorGUILayout.ObjectField(mapping.prefab, typeof(GameObject), true);
+
+                EditorGUILayout.EndHorizontal();
+            }
         }
     }
+
+    private void DisplayColorMappingsMenu()
+    {
+        EditorGUILayout.BeginHorizontal();
+        // Create color mappings
+        if (GUILayout.Button("Create Color Mappings"))
+        {
+            GetColors();
+        }
+        // Delete last mapping in list
+        // TODO let user select which colormapping to delete
+        if (GUILayout.Button("Delete Last Mapping"))
+        {
+            levelData.mappings.RemoveAt(levelData.mappings.Count - 1);
+        }
+        EditorGUILayout.EndHorizontal();
+        GUILayout.EndScrollView();
+        EditorGUILayout.Space();
+    }
+
+    private void DisplayGenerateExportMenu()
+    {
+        EditorGUILayout.BeginHorizontal();
+        // Generate level from level data
+        if (GUILayout.Button("Generate Level"))
+        {
+            // Create parent object for the tiles
+            parentObject = new GameObject(levelName + " Generated Tiles");
+            GenerateLevel();
+        }
+
+        // Create prefab from Generated Tiles and assign to level data
+        if (GUILayout.Button("Export Level"))
+        {
+            if (parentObject)
+            {
+                ExportLevel();
+            }
+            else
+            {
+                Debug.LogError("Can't export level if it's not generated! Click on 'Generate Level'.");
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
+    }
+    #endregion
 
     private void CreateNewList() 
     {
