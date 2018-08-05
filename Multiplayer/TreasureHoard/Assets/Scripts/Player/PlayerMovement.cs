@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PlayerMovement : NetworkBehaviour {
-
+public class PlayerMovement : NetworkBehaviour
+{
     private Vector3 inputTransform;
     private Vector3 inputRotate;
     private float sailSpeed = 15f;
     private float rotationSpeed = 30f;
 
-    private void Update() {
-        if (!isLocalPlayer) {
+    private void Update()
+    {
+        if (!isLocalPlayer)
+        {
             return;
         }
 

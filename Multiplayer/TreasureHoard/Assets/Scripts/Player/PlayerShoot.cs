@@ -1,38 +1,64 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerShoot : NetworkBehaviour {
-
-    public int damage = 10;
+public class PlayerShoot : NetworkBehaviour
+{
+    public GameObject projectilePrefab;
     public float range = 200f;
-    
+
     [SerializeField]
     private LayerMask mask;
+    private Transform cannonPosition;
 
-    private void Update() {
-        if (Input.GetButtonDown("Fire1")) {
+    private void Start()
+    {
+        cannonPosition = transform.GetChild(0);
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1") && isLocalPlayer)
+        {
             Shoot();
         }
     }
 
-    [Client]
-    private void Shoot() {
-        RaycastHit _hit;
-        if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out _hit, range, mask)) {
-            Debug.Log(_hit.collider.name);
-            if (_hit.collider.tag == "Player") {
-                CmdPlayerShot(_hit.collider.name, damage);
-            }
+    private void Shoot()
+    {
+        if (!isServer)
+        {
+            CmdPlayerShot();
+        }
+        else
+        {
+            RpcPlayerShot();
         }
     }
 
     [Command]
-    private void CmdPlayerShot(string _playerID, int _damage) {
-        Debug.Log(_playerID + " has been shot.");
-        Player _player = GameManager.GetPlayer(_playerID);
-        _player.RpcTakeDamage(_damage);
+    public void CmdPlayerShot()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, cannonPosition.position, Quaternion.identity, cannonPosition);
+        NetworkServer.Spawn(projectile);
+        projectile.transform.position = new Vector3(cannonPosition.position.x, cannonPosition.position.y, cannonPosition.position.z) + cannonPosition.forward * 2;
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        rb.velocity = cannonPosition.forward * range;
+        RpcSwitchTurns();
+    }
+
+    [ClientRpc]
+    public void RpcSwitchTurns()
+    {
+        GameManager.SwitchTurns();
+    }
+
+    [ClientRpc]
+    public void RpcPlayerShot()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, cannonPosition.position, Quaternion.identity, cannonPosition);
+        projectile.transform.position = new Vector3(cannonPosition.position.x, cannonPosition.position.y, cannonPosition.position.z) + cannonPosition.forward * 2;
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        rb.velocity = cannonPosition.forward * range;
+        GameManager.SwitchTurns();
     }
 }

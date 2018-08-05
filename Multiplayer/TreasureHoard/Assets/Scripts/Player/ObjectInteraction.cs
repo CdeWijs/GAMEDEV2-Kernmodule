@@ -1,35 +1,32 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class ObjectInteraction : NetworkBehaviour {
-
-    private Player player;
-    private Spawner spawner;
+public class ObjectInteraction : NetworkBehaviour
+{
+    [SerializeField]
     private int scoreAmount = 10;
+    private Spawner objectSpawner;
 
-    private void Start() {
-        player = GetComponent<Player>();
-        spawner = FindObjectOfType<Spawner>();
+    private void Start()
+    {
+        objectSpawner = FindObjectOfType<Spawner>();
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "TreasureChest") {
-            CmdPickup(other.gameObject);
-            player.AddScore(scoreAmount);
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Player player = GameManager.GetPlayer(other.name);
+            player.RpcAddScore(scoreAmount);
+            CmdPickup();
         }
     }
 
     [Command]
-    private void CmdPickup(GameObject _object) {
-        RpcPickup(_object);
-    }
-
-    [ClientRpc]
-    private void RpcPickup(GameObject _object) {
-        spawner.SetInActive(_object);
-        spawner.Spawn();
+    private void CmdPickup()
+    {
+        Debug.Log("Rpc " + gameObject);
+        objectSpawner.SetInActive(gameObject);
+        objectSpawner.SpawnObject();
     }
 }

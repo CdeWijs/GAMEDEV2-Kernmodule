@@ -1,68 +1,107 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Player : NetworkBehaviour {
+public class Player : NetworkBehaviour
+{
+    // Members
+    public bool MyTurn { get; set; }
 
     [SerializeField]
     private Behaviour[] disableOnDeath;
-
     private float startHealth = 100f;
     [SyncVar]
     private float currentHealth;
     [SyncVar]
-    private bool isDead = false;
-    [SyncVar]
     private int score;
+    private Vector3 startPosition;
 
-    private PlayerUI playerUI;
+    // References
+    public PlayerUI playerUI;
+    private PlayerShoot playerShoot;
 
-    private void Start() {
-        ResetPlayer();
+    private void Start()
+    {
+        MyTurn = false;
+        if (isLocalPlayer)
+        {
+            startPosition = transform.position;
+        }
+        playerShoot = GetComponent<PlayerShoot>();
         playerUI = GetComponent<PlayerUI>();
+        ResetPlayer();
     }
 
-    public void ResetPlayer() {
-        currentHealth = startHealth;
-        isDead = false;
+    private void Update()
+    {
+        if (MyTurn)
+        {
+            SetShootActive(true);
+        }
+        else
+        {
+            SetShootActive(false);
+        }
+    }
 
-        for (int i = 0; i < disableOnDeath.Length; i++) {
+    public void ResetPlayer()
+    {
+        currentHealth = startHealth;
+        for (int i = 0; i < disableOnDeath.Length; i++)
+        {
             disableOnDeath[i].enabled = true;
         }
     }
 
-    public float GetCurrentHealth() {
+    public float GetCurrentHealth()
+    {
         return currentHealth;
     }
 
-    public float GetScore() {
+    public float GetScore()
+    {
         return score;
     }
 
-    public void AddScore(int _amount) {
+    [ClientRpc]
+    public void RpcAddScore(int _amount)
+    {
         score += _amount;
         playerUI.UpdateScore();
     }
 
     [ClientRpc]
-    public void RpcTakeDamage(int _amount) {
-        currentHealth -= _amount;
+    public void RpcTakeDamage(int amount)
+    {
+        currentHealth -= amount;
         playerUI.UpdateHealth();
-        if (currentHealth <= 0) {
-            Die();
+        if (currentHealth <= 0)
+        {
+            StartCoroutine(Die());
+            StartCoroutine(playerUI.ShowWreckedText());
         }
     }
 
-    private void Die() {
-        isDead = true;
+    private IEnumerator Die()
+    {
+        Debug.Log(gameObject.name + " has died.");
         StartCoroutine(ScoreManager.PostScores(score));
-
-        for (int i = 0; i < disableOnDeath.Length; i++) {
+        for (int i = 0; i < disableOnDeath.Length; i++)
+        {
             disableOnDeath[i].enabled = false;
         }
+        yield return new WaitForSeconds(5);
+        if (isLocalPlayer)
+        {
+            transform.position = startPosition;
+            ResetPlayer();
+            playerUI.UpdateHealth();
+        }
+        yield return null;
+    }
 
-        ResetPlayer();
+    public void SetShootActive(bool isActive)
+    {
+        playerShoot.enabled = isActive;
     }
 }

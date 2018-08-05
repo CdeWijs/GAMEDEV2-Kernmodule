@@ -29,7 +29,7 @@ public class ScoreManager : MonoBehaviour {
         }
 
         // The above doesn't seem to work so this is temporary:
-        Application.OpenURL(url);
+        //Application.OpenURL(url);
     }
 
     // Get the scores from the MySQL DB to display in a GUIText.
